@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 
-from model_utils import MODEL_COLUMNS, load_data
+from model_utils import MODEL_COLUMNS, load_data, make_models
 
 
 st.set_page_config(page_title="Telco Churn Dashboard", page_icon="📊", layout="wide")
@@ -20,10 +20,15 @@ def get_data():
 
 @st.cache_resource
 def get_model():
-    if not MODEL_FILE.exists():
-        st.error("Saved model missing. Run `python save_models.py` first.")
-        st.stop()
-    return joblib.load(MODEL_FILE)
+    try:
+        if MODEL_FILE.exists():
+            return joblib.load(MODEL_FILE)
+    except Exception:
+        st.warning("The saved model could not be loaded, so the model is being rebuilt.")
+
+    model = make_models()["forest"]
+    model.fit(load_data()[MODEL_COLUMNS], load_data()["Churn"])
+    return model
 
 
 data = get_data()
