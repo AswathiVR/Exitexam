@@ -1,0 +1,6 @@
+test_case,tenure,PhoneService,MultipleLines,InternetService,OnlineSecurity,OnlineBackup,DeviceProtection,TechSupport,StreamingTV,StreamingMovies,Contract,PaperlessBilling,PaymentMethod,MonthlyCharges,TotalCharges
+New high-risk customer,1,Yes,No,Fiber optic,No,No,No,No,No,No,Month-to-month,Yes,Electronic check,89.85,89.85
+Long-term loyal customer,60,Yes,Yes,DSL,Yes,Yes,Yes,Yes,Yes,Yes,Two year,No,Bank transfer (automatic),75.20,4512.00
+Medium-risk customer,24,Yes,No,DSL,No,Yes,No,No,No,No,One year,Yes,Mailed check,55.00,1320.00
+No-internet customer,36,Yes,No,No,No internet service,No internet service,No internet service,No internet service,No internet service,No internet service,One year,No,Credit card (automatic),25.00,900.00
+High-charge monthly customer,8,Yes,Yes,Fiber optic,No,No,No,No,Yes,Yes,Month-to-month,Yes,Electronic check,110.00,880.00

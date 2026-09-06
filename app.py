@@ -11,6 +11,7 @@ from model_utils import MODEL_COLUMNS, load_data, make_models
 st.set_page_config(page_title="Telco Churn Dashboard", page_icon="📊", layout="wide")
 BASE_DIR = Path(__file__).parent
 MODEL_FILE = BASE_DIR / "forest_model.joblib"
+TEST_FILE = BASE_DIR / "testing_records.csv"
 
 
 @st.cache_data
@@ -104,3 +105,20 @@ if submitted:
         st.success("Lower risk: continue normal customer care and monitoring.")
 
 st.caption("Decision-support demonstration only. Do not use predictions as the sole basis for customer treatment.")
+
+st.subheader("Testing records")
+st.write("These example records are used only to test predictions. They are not included in model training.")
+
+testing_data = pd.read_csv(TEST_FILE)
+testing_features = testing_data[MODEL_COLUMNS]
+testing_data["Predicted_Churn_Risk"] = model.predict_proba(testing_features)[:, 1]
+testing_data["Risk_Level"] = testing_data["Predicted_Churn_Risk"].apply(
+    lambda risk: "High" if risk >= 0.60 else "Lower"
+)
+st.dataframe(
+    testing_data[[
+        "test_case", "tenure", "Contract", "InternetService",
+        "MonthlyCharges", "Predicted_Churn_Risk", "Risk_Level",
+    ]].style.format({"Predicted_Churn_Risk": "{:.2%}"}),
+    use_container_width=True,
+)

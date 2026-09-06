@@ -10,6 +10,8 @@ streamlit run app.py
 
 The app loads `forest_model.joblib` and does not retrain on every page load.
 
+The separate `testing_records.csv` file contains five demonstration customers. These records are displayed in the app for testing and are not used to train the model.
+
 ## Deploy publicly
 
 1. Push all project files to a public GitHub repository.
